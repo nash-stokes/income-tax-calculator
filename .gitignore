@@ -60,3 +60,5 @@ riderModule.iml
 
 API/appsettings.Development.json
 UI/appsettings.Development.json
+
+.idea
