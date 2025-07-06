@@ -14,25 +14,20 @@ builder.Configuration.AddEnvironmentVariables();
 
 // DbContext and Repository
 builder.Services.AddDbContext<TaxDbContext>(opts =>
-    opts.UseSqlServer(builder.Configuration["TAX_DB_CONN"]));
+    opts.UseNpgsql(builder.Configuration.GetConnectionString("TaxDb")));
 builder.Services.AddScoped<ITaxBandRepository, TaxBandRepository>();
+builder.Services.AddScoped<ITaxCalculatorFactory, TaxCalculatorFactory>();
+builder.Services.AddScoped<ITaxCalculator>(sp =>
+{
+    var factory = sp.GetRequiredService<ITaxCalculatorFactory>();
+    return factory.CreateCalculatorAsync(CancellationToken.None).GetAwaiter().GetResult();
+});
+builder.Services.AddScoped<TaxService>();
 
-// Strategy & Service
-builder.Services.AddSingleton<ITaxCalculator, BandBasedTaxCalculator>();
-builder.Services.AddScoped<ITaxService, TaxService>();
 
 // Caching and ProblemDetails
 builder.Services.AddMemoryCache();
 builder.Services.AddProblemDetails();
-
-// Add RazorPages
-builder.Services.AddRazorPages();
-
-// (Optional) Configure HttpClient to talk to your API
-// builder.Services.AddHttpClient("TaxApi", c =>
-// {
-//     c.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]);
-// });
 
 var app = builder.Build();
 
@@ -59,12 +54,5 @@ app.MapGet("/api/tax/{salary:decimal}", async (
     var result = await taxService.ComputeAsync(salary, ct);
     return Results.Ok(result);
 });
-
-// Serve static files (wwwroot)
-app.UseStaticFiles();
-
-// Routing + MapRazorPages
-app.UseRouting();
-app.MapRazorPages();
 
 app.Run();

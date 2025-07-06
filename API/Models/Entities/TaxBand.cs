@@ -7,18 +7,21 @@ public class TaxBand
     {
     }
 
-    public TaxBand(decimal lowerLimit, decimal? upperLimit, decimal rate)
+    public TaxBand(int lowerLimit, int? upperLimit, int rate)
     {
         if (lowerLimit < 0) throw new ArgumentException(nameof(lowerLimit));
         if (rate is < 0 or > 1) throw new ArgumentException(nameof(rate));
 
         LowerLimit = lowerLimit;
-        UpperLimit = upperLimit;
+        if (upperLimit != null)
+        {
+            UpperLimit = upperLimit;
+        }
         Rate = rate;
     }
 
     public int Id { get; private set; }
-    public decimal LowerLimit { get; private set; }
-    public decimal? UpperLimit { get; private set; }
-    public decimal Rate { get; private set; }
+    public int LowerLimit { get; private set; }
+    public int? UpperLimit { get; private set; }
+    public int Rate { get; private set; }
 }

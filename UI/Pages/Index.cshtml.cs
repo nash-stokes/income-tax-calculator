@@ -1,17 +1,17 @@
-﻿using Application.DTOs;
-using Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
+using Application.DTOs;
 
 namespace UI.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ITaxService _taxService;
+    private readonly HttpClient _httpClient;
 
-    public IndexModel(ITaxService taxService)
+    public IndexModel(IHttpClientFactory httpClientFactory)
     {
-        _taxService = taxService;
+        _httpClient = httpClientFactory.CreateClient("TaxApi");
     }
 
     [BindProperty] public decimal GrossSalary { get; set; }
@@ -27,8 +27,27 @@ public class IndexModel : PageModel
             return Page();
         }
 
-        Result = await _taxService.ComputeAsync(
-            GrossSalary, HttpContext.RequestAborted);
-        return Page();
+        try 
+        {
+            var response = await _httpClient.GetFromJsonAsync<TaxResult>(
+                $"api/tax/{GrossSalary}", 
+                HttpContext.RequestAborted);
+            
+            Result = response;
+            return Page();
+        }
+        catch (HttpRequestException ex)
+        {
+            ModelState.AddModelError(string.Empty, 
+                "Unable to connect to the tax calculation service. Please try again later.");
+            return Page();
+        }
+        catch (JsonException ex)
+        {
+            ModelState.AddModelError(string.Empty, 
+                "Invalid response from the tax calculation service.");
+            return Page();
+        }
     }
+
 }

@@ -9,7 +9,7 @@ public class BandBasedTaxCalculator : ITaxCalculator
 
     public BandBasedTaxCalculator(IEnumerable<TaxBand> bands)
     {
-        if (bands == null) throw new ArgumentNullException(nameof(bands));
+        ArgumentNullException.ThrowIfNull(bands);
         // Ensure bands are sorted by LowerLimit
         _bands = bands.OrderBy(b => b.LowerLimit).ToList();
     }
