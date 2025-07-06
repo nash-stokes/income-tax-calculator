@@ -42,7 +42,7 @@ public class TaxService : ITaxService
         var grossMonthly = Math.Round(grossAnnual / 12, 2);
         var monthlyTax = Math.Round(annualTax / 12, 2);
         var netAnnual = Math.Round(grossAnnual - annualTax, 2);
-        var netMonthly = Math.Round(grossMonthly - monthlyTax, 2);
+        var netMonthly = Math.Round(netAnnual / 12, 2);
 
         return new TaxResult(
             grossAnnual, grossMonthly,
