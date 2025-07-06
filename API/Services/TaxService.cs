@@ -32,6 +32,11 @@ public class TaxService : ITaxService
     {
         ct.ThrowIfCancellationRequested();
 
+        if (grossAnnual < 0)
+        {
+            throw new ArgumentException("Salary must be non-negative.");
+        }
+
         var bands = await _cache.GetOrCreateAsync(BandsCacheKey, async entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace API.Migrations
 {
     /// <inheritdoc />
     public partial class DML_Seed_Tax_Band_Data : Migration
@@ -12,14 +12,13 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.InsertData(
                 table: "TaxBands",
-                columns: new[] { "Id", "LowerLimit", "UpperLimit", "Rate" },
+                columns: new[] {"LowerLimit", "UpperLimit", "Rate" },
                 values: new object[,]
                 {
-                    { 1, 0, 5000, 0 },
-                    { 2, 5000, 20000, 20 },
-                    { 3, 20000, null, 40 }
+                    {0, 5000, 0 },
+                    {5000, 20000, 20 },
+                    {20000, null, 40 }
                 });
-
         }
 
         /// <inheritdoc />
@@ -27,7 +26,7 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.DeleteData(
                 table: "TaxBands",
-                keyColumn: "Id",
+                keyColumn: "Id", 
                 keyValues: new object[] { 1, 2, 3 });
         }
     }

@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace API.Migrations
 {
     /// <inheritdoc />
     public partial class DML_Create_Tax_Band_Table : Migration

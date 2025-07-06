@@ -17,6 +17,11 @@ public class TaxDbContext : DbContext
         mb.Entity<TaxBand>()
             .HasKey(tb => tb.Id);
 
+        // Configure auto-generated ID
+        mb.Entity<TaxBand>()
+            .Property(tb => tb.Id)
+            .UseIdentityColumn(); // This sets up auto-increment behavior
+
         mb.Entity<TaxBand>()
             .Property(tb => tb.LowerLimit)
             .IsRequired();
@@ -25,4 +30,5 @@ public class TaxDbContext : DbContext
             .Property(tb => tb.Rate)
             .IsRequired();
     }
+
 }
