@@ -1,8 +1,7 @@
-﻿using Domain.Entities;
-using Infrastructure.Data;
+﻿using API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace API.Data.Repositories;
 
 public interface ITaxBandRepository
 {

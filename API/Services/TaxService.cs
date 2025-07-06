@@ -1,10 +1,8 @@
-﻿using Application.DTOs;
-using Application.Interfaces;
-using Domain.Interfaces;
-using Infrastructure.Repositories;
+﻿using API.Data.Repositories;
+using API.Models.DTOs;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Application.Services;
+namespace API.Services;
 
 public class TaxService : ITaxService
 {

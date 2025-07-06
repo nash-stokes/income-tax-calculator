@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs;
+﻿namespace API.Models.DTOs;
 
 public record TaxResult(
     decimal GrossAnnual,

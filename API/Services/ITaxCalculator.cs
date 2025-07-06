@@ -1,4 +1,4 @@
-﻿namespace Domain.Interfaces;
+﻿namespace API.Services;
 
 public interface ITaxCalculator
 {

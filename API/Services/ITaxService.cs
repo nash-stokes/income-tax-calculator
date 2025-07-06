@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
+﻿using API.Models.DTOs;
 
-namespace Application.Interfaces;
+namespace API.Services;
 
 public interface ITaxService
 {

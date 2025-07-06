@@ -1,7 +1,6 @@
-﻿using Domain.Interfaces;
-using Infrastructure.Repositories;
+﻿using API.Data.Repositories;
 
-namespace Domain.Services;
+namespace API.Services;
 
 public class TaxCalculatorFactory : ITaxCalculatorFactory
 {

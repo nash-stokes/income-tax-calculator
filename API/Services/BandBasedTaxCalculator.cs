@@ -1,7 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
+﻿using API.Models.Entities;
 
-namespace Domain.Services;
+namespace API.Services;
 
 public class BandBasedTaxCalculator : ITaxCalculator
 {
@@ -30,7 +29,7 @@ public class BandBasedTaxCalculator : ITaxCalculator
             var upper = band.UpperLimit ?? grossAnnual;
             // Compute how much falls into this band
             var taxableAmount = Math.Min(grossAnnual, upper) - band.LowerLimit;
-            tax += taxableAmount * band.Rate;
+            tax += (taxableAmount * band.Rate) / 100;
         }
 
         return Math.Round(tax, 2);

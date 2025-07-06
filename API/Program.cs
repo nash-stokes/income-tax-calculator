@@ -1,9 +1,6 @@
-using Application.Interfaces;
-using Application.Services;
-using Domain.Interfaces;
-using Domain.Services;
-using Infrastructure.Data;
-using Infrastructure.Repositories;
+using API.Data;
+using API.Data.Repositories;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +19,7 @@ builder.Services.AddScoped<ITaxCalculator>(sp =>
     var factory = sp.GetRequiredService<ITaxCalculatorFactory>();
     return factory.CreateCalculatorAsync(CancellationToken.None).GetAwaiter().GetResult();
 });
-builder.Services.AddScoped<TaxService>();
+builder.Services.AddScoped<ITaxService, TaxService>();
 
 
 // Caching and ProblemDetails
@@ -42,7 +39,7 @@ app.MapGet("/error", (HttpContext ctx) =>
 // Tax endpoint
 app.MapGet("/api/tax/{salary:decimal}", async (
     decimal salary,
-    ITaxService taxService,
+    [FromServices] ITaxService taxService,
     CancellationToken ct) =>
 {
     if (salary < 0)
@@ -54,5 +51,6 @@ app.MapGet("/api/tax/{salary:decimal}", async (
     var result = await taxService.ComputeAsync(salary, ct);
     return Results.Ok(result);
 });
+
 
 app.Run();

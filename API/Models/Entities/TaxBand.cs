@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace API.Models.Entities;
 
 public class TaxBand
 {

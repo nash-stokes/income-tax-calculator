@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
+﻿using API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data;
+namespace API.Data;
 
 public class TaxDbContext : DbContext
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
-using Application.DTOs;
+using API.Models.DTOs;
 
 namespace UI.Pages;
 
