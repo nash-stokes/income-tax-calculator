@@ -1,6 +1,7 @@
 using API.Data;
 using API.Data.Repositories;
 using API.Services;
+using API.Services.TaxCalculator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,9 @@ builder.Services.AddScoped<ITaxService, TaxService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddProblemDetails();
 
+// Controllers
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Global error handling
@@ -36,21 +40,7 @@ app.MapGet("/error", (HttpContext ctx) =>
     return Results.Problem(pd.Detail, statusCode: pd.Status);
 });
 
-// Tax endpoint
-app.MapGet("/api/tax/{salary:decimal}", async (
-    decimal salary,
-    [FromServices] ITaxService taxService,
-    CancellationToken ct) =>
-{
-    if (salary < 0)
-        return Results.ValidationProblem(new Dictionary<string, string[]>
-        {
-            ["salary"] = new[] { "Salary must be non-negative." }
-        });
-
-    var result = await taxService.ComputeAsync(salary, ct);
-    return Results.Ok(result);
-});
+app.MapControllers();
 
 
 app.Run();

@@ -1,6 +1,6 @@
 ﻿using API.Models.Entities;
 
-namespace API.Services;
+namespace API.Services.TaxCalculator;
 
 public class BandBasedTaxCalculator : ITaxCalculator
 {

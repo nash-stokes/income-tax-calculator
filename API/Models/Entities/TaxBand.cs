@@ -9,8 +9,8 @@ public class TaxBand
 
     public TaxBand(int lowerLimit, int? upperLimit, int rate)
     {
-        if (lowerLimit < 0) throw new ArgumentException(nameof(lowerLimit));
-        if (rate is < 0 or > 1) throw new ArgumentException(nameof(rate));
+        if (lowerLimit < 0) throw new ArgumentException("Invalid lower limit. Must be greater than or equal to zero.");
+        if (rate is < 0 or > 100) throw new ArgumentException("Invalid tax rate. Must be between 0 and 100 inclusive.");
 
         LowerLimit = lowerLimit;
         if (upperLimit != null)

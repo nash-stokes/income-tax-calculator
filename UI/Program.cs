@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient("TaxApi", c =>
 {
-    c.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]);
+    c.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? string.Empty);
 });
 
 var app = builder.Build();

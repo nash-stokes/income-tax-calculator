@@ -36,13 +36,13 @@ public class IndexModel : PageModel
             Result = response;
             return Page();
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException)
         {
             ModelState.AddModelError(string.Empty, 
                 "Unable to connect to the tax calculation service. Please try again later.");
             return Page();
         }
-        catch (JsonException ex)
+        catch (JsonException)
         {
             ModelState.AddModelError(string.Empty, 
                 "Invalid response from the tax calculation service.");
