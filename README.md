@@ -41,7 +41,7 @@ Business logic is encapsulated in service classes, which:
 - Allow for reuse of business logic across different parts of the application
 
 ## Database
-The application uses Entity Framework Core for data access and migrations. The database includes:
+The application uses Entity Framework Core for data access and migrations. The included migrations create:
 - A `TaxBands` table storing the tax brackets and rates
 - Seed data for common tax bands (0%, 20%, and 40%)
 
